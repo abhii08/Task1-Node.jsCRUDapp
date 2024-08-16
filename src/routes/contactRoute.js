@@ -5,6 +5,7 @@ const {
   updateContactInCRM,
   deleteContactFromCRM,
 } = require('../handlers/customerHandler');
+
 const {
   createcontact,
   readContact,
@@ -16,7 +17,7 @@ const router = express.Router();
 
 router.post("/createContact", (req, res) => {
     const { first_name, last_name, email, mobile_number, data_store } = req.body;
-
+    
     if(data_store === 'CRM') {
         createContactInCRM({ first_name, last_name, email, mobile_number })
             .then((response) => res.status(201).json(response))
@@ -57,6 +58,7 @@ router.post('/getContact', (req, res) => {
         .then((response) => res.status(200).json(response))
         .catch((err) => res.status(500).json(err.message));
     } else if (data_store === 'DATABASE') {
+      console.log(updateContact);
       updateContact(contact_id, { email: new_email, mobile_number: new_mobile_number }, (err, rowsAffected) => {
         if (err) return res.status(500).json(err.message);
         if (rowsAffected === 0) return res.status(404).json({ error: 'Contact not found' });

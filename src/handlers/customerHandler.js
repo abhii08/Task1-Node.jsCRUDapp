@@ -6,8 +6,8 @@ dotenv.config();
 async function createContactInCRM(contact) {
     const config = {
         headers:{
-            Authorization: `Token token=${process.env.FRESHSALES_API_KEY}`,
-            'content-Type': 'application/json',
+            Authorization: `Token token=${process.env.FRESHSALES_API_KEY}`,  
+            'Content-Type': 'application/json',  
         },
     };
     try {

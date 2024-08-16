@@ -1,7 +1,7 @@
-const db = require("../db")
+const db = require("../config/db")
 
 function createcontact(contact, callback) {
-    const query =  'INSERT INTO contacts (first_name, last_name, email, mobile_number VALUES (?, ?, ?, ?)';
+    const query =  'INSERT INTO contacts (first_name, last_name, email, mobile_number) VALUES (?, ?, ?, ?)';
     const values = [contact.first_name, contact.last_name, contact.email, contact.mobile_number];
     db.query(query, values, (err, results) => {
         if(err) return callback(err);
@@ -10,15 +10,15 @@ function createcontact(contact, callback) {
 };
 
 function readContact(contact_id, callback) {
-    const query = 'SELECT * FROM contacts WHERE id = ?';
+    const query = 'SELECT * FROM contacts WHERE contact_id = ?';
     db.query(query, [contact_id], (err, results) => {
         if(err) return callback(err);
         callback(null, results[0]);
     });
 };
 
-function updatecontact(contact_id, updates, callback) {
-    const query = 'UPDATE contacts SET email = ?, mobile_number = ? WHERE id = ?';
+function updateContact(contact_id, updates, callback) {
+    const query = 'UPDATE contacts SET email = ?, mobile_number = ? WHERE contact_id = ?';
     const values = [updates.email, updates.mobile_number, contact_id];
     db.query(query, values, (err, results) => {
         if(err) return callback(err);
@@ -27,7 +27,7 @@ function updatecontact(contact_id, updates, callback) {
 };
 
 function deleteContact(contact_id, callback) {
-    const query = 'DELETE FROM contacts WHERE id = ?';
+    const query = 'DELETE FROM contacts WHERE contact_id = ?';
     db.query(query, [contact_id], (err, results) => {
         if(err) return callback(err);
         callback(null, results.affectedRows);
@@ -37,6 +37,6 @@ function deleteContact(contact_id, callback) {
 module.exports = {
     createcontact,
     readContact,
-    updatecontact,
+    updateContact,
     deleteContact
 }

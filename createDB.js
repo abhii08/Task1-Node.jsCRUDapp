@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
 });
-console.log(error);
+
 connection.connect((err) => {
   if (err) throw err;
   console.log('Connected to MySQL server!');
@@ -22,7 +22,7 @@ connection.connect((err) => {
 
       const createTableQuery = `
         CREATE TABLE IF NOT EXISTS contacts (
-          id INT AUTO_INCREMENT PRIMARY KEY,
+          contact_id INT AUTO_INCREMENT PRIMARY KEY,
           first_name VARCHAR(255),
           last_name VARCHAR(255),
           email VARCHAR(255),
